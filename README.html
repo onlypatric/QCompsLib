@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QCompsLib</title>
+  <style>
+    a{color: cadetblue;}
+    h1,p,h2,h3,h4{color:black;font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;}
+  </style>
+</head>
+<body>
+  <h1 id="qcompslib-framework-gui">QCompsLib Framework GUI</h1>
+  <p>Una libreria GUI estremamente potente progettata per massime prestazioni, facilità d&#39;uso e scalabilità, ti
+    permette di costruire facilmente componenti che puoi riutilizzare anche senza dover creare una nuova classe da zero.
+  </p>
+  <h2 id="indice">Indice</h2>
+  <p>Caratteristiche della classe foglio di stile <a href="#style"><code>Style</code></a>:</p>
+  <ul>
+    <li><a href="#propertyowner"><code>PropertyOwner</code></a></li>
+    <li><a href="#displayable"><code>Displayable(PropertyOwner)</code></a></li>
+    <li><a href="#outlined"><code>Outlined(PropertyOwner)</code></a></li>
+    <li><a href="#alignablestyle"><code>AlignableStyle(PropertyOwner)</code></a></li>
+    <li><a href="#fonteditable"><code>FontEditable(PropertyOwner)</code></a></li>
+    <li><a href="#fontcolorizable"><code>FontColorizable(PropertyOwner)</code></a></li>
+    <li><a href="#bordered"><code>Bordered(PropertyOwner)</code></a></li>
+    <li><a href="#paddedstyle"><code>PaddedStyle(PropertyOwner)</code></a></li>
+    <li><a href="#margined"><code>Margined(PropertyOwner)</code></a></li>
+    <li><a href="#texteditable"><code>TextEditable(PropertyOwner)</code></a></li>
+    <li><a href="#opacityeditable"><code>OpacityEditable(PropertyOwner)</code></a></li>
+    <li><a href="#cursoreditable"><code>CursorEditable(PropertyOwner)</code></a></li>
+    <li><a href="#backgroundchangeable"><code>BackgroundChangeable(PropertyOwner)</code></a></li>
+  </ul>
+  <p>Classi stile pronte per l&#39;uso</p>
+  <ul>
+    <li><a href="#QSS"><code>QSS</code></a></li>
+    <li><a
+        href="#style"><code>Style(AlignableStyle, Bordered, PaddedStyle, Margined, OpacityEditable, CursorEditable, BackgroundChangeable, FontEditable, FontColorizable, TextEditable, Displayable, Outlined)</code></a>
+    </li>
+  </ul>
+  <p>Gli stili predefiniti possono essere ottenuti da:</p>
+  <ul>
+    <li><a href="#TextStyles"><code>TextStyles</code></a></li>
+    <li><a href="#PaddingStyles"><code>PaddingStyles</code></a></li>
+    <li><a href="#MarginStyles"><code>MarginStyles</code></a></li>
+    <li><a href="#OpacityStyles"><code>OpacityStyles</code></a></li>
+    <li><a href="#BorderRadiusStyles"><code>BorderRadiusStyles</code></a></li>
+    <li><a href="#TabWidgetStyles"><code>TabWidgetStyles</code></a></li>
+    <li><a href="#ButtonStyles"><code>ButtonStyles</code></a></li>
+  </ul>
+  <p>Classe speciale utilizzata per trovare elementi a cui è stato assegnato un ID (simile a
+    <strong><code>getElementByID</code></strong> di JavaScript)
+  </p>
+  <ul>
+    <li><a href="#Finder"><code>Finder</code></a></li>
+  </ul>
+  <p>I componenti possono avere alcune caratteristiche come:</p>
+  <ul>
+    <li><a href="#Alignable"><code>Alignable</code></a></li>
+    <li><a href="#Identifiable"><code>Identifiable</code></a></li>
+    <li><a href="#TextAttributed"><code>TextAttributed</code></a></li>
+    <li><a href="#texteditable"><code>TextEditable</code></a></li>
+    <li><a href="#AnyMenu"><code>AnyMenu</code></a></li>
+    <li><a href="#Padded"><code>Padded</code></a></li>
+    <li><a href="#Stylable"><code>Stylable</code></a></li>
+    <li><a href="#Attributable"><code>Attributable</code></a></li>
+    <li><a href="#Linked"><code>Linked</code></a></li>
+    <li><a href="#Checkable"><code>Checkable</code></a></li>
+    <li><a href="#Clickable"><code>Clickable</code></a></li>
+    <li><a href="#Iconizable"><code>Iconizable</code></a></li>
+    <li><a href="#Ranged"><code>Ranged</code></a></li>
+    <li><a href="#Sizable"><code>Sizable</code></a></li>
+    <li><a
+        href="#basicelement"><code>BasicElement(Padded, Stylable, Attributable, Identifiable, Alignable, Sizable)</code></a>
+    </li>
+  </ul>
+  <p>Lista dei componenti:</p>
+  <ul>
+    <li><a href="#basecontainer"><code>BaseContainer(QWidget, BasicElement, Linked)</code></a></li>
+    <li><a href="#vertical"><code>Vertical(BaseContainer)</code></a></li>
+    <li><a href="#horizontal"><code>Horizontal(BaseContainer)</code></a></li>
+    <li><a href="#grid"><code>Grid(BaseContainer)</code></a></li>
+    <li><a href="#stacked"><code>Stacked(BaseContainer)</code></a></li>
+    <li><a href="#tabs"><code>Tabs(QTabWidget, BasicElement, Linked, Padded)</code></a></li>
+    <li><a href="#label"><code>Label(QLabel, BasicElement, Linked, Iconizable)</code></a></li>
+    <li><a href="#heading"><code>Heading(Label)</code></a></li>
+    <li><a href="#text"><code>Text(Label)</code></a></li>
+    <li><a href="#button"><code>Button(QPushButton, BasicElement, Linked, Clickable, Iconizable)</code></a></li>
+    <li><a href="#checkbox"><code>CheckBox(QCheckBox, BasicElement, Checkable, Linked, Iconizable)</code></a></li>
+    <li><a
+        href="#radiobutton"><code>RadioButton(QRadioButton, BasicElement, Checkable, TextEditable, Linked, Iconizable)</code></a>
+    </li>
+    <li><a href="#combobox"><code>ComboBox(QComboBox, BasicElement, TextEditable, Linked)</code></a></li>
+    <li><a href="#field"><code>Field(QLineEdit, BasicElement, TextEditable, Linked, TextAttributed)</code></a></li>
+    <li><a
+        href="#multilinefield"><code>MultilineField(QTextEdit, BasicElement, TextEditable, Linked, TextAttributed)</code></a>
+    </li>
+    <li><a href="#slider"><code>Slider(QSlider, BasicElement, Linked, Ranged)</code></a></li>
+    <li><a href="#progressbar"><code>ProgressBar(QProgressBar, BasicElement, Linked, Ranged)</code></a></li>
+    <li><a href="#spinbox"><code>SpinBox(QSpinBox, BasicElement, Linked, TextEditable, Ranged)</code></a></li>
+    <li><a href="#dial"><code>Dial(QDial, BasicElement, Linked, Ranged)</code></a></li>
+    <li><a href="#action"><code>Action(QAction, BasicElement)</code></a></li>
+    <li><a href="#menu"><code>Menu(QMenu, AnyMenu)</code></a></li>
+    <li><a href="#menubar"><code>MenuBar(QMenuBar, AnyMenu)</code></a></li>
+    <li><a href="#filedialog"><code>FileDialog(QFileDialog)</code></a></li>
+    <li><a href="#window"><code>Window(QMainWindow, BasicElement,Sizable)</code></a></li>
+    <li><a href="#dialog"><code>Dialog(QDialog, BasicElement, Sizable)</code></a></li>
+    <li><a href="#scrollablecontainer"><code>ScrollableContainer(Vertical, BasicElement)</code></a></li>
+    <li><a href="#groupbox"><code>GroupBox(QGroupBox, BasicElement, Padded, Linked)</code></a></li>
+    <li><a href="#itemcheckable"><code>ItemCheckable(QTableWidgetItem)</code></a></li>
+    <li><a href="#toggle"><code>Toggle(CheckBox)</code></a></li>
+    <li><a href="#table"><code>Table(QTableWidget, BasicElement, Linked)</code></a></li>
+    <li><a href="#loginform"><code>LoginForm(Vertical)</code></a></li>
+    <li><a href="#multilineassistedfield"><code>MultilineAssistedField(Vertical)</code></a></li>
+    <li><a href="#listwidget"><code>ListWidget(QListWidget, BasicElement, Linked, Padded)</code></a></li>
+    <li><a href="#listitem"><code>ListItem(QListWidgetItem)</code></a></li>
+    <li><a href="#navigationlink"><code>NavigationLink(Button)</code></a></li>
+    <li><a href="#navigationbar"><code>NavigationBar(Horizontal, BasicElement)</code></a></li>
+    <li><a href="#divider"><code>Divider(QFrame, BasicElement)</code></a></li>
+    <li><a href="#hdivider"><code>HDivider(Divider)</code></a></li>
+    <li><a href="#vdivider"><code>VDivider(Divider)</code></a></li>
+  </ul>
+  <h3 id="esplora-tutte-le-classi">Esplora tutte le classi</h3>
+  <hr>
+  <h4 id="propertyowner"><code>PropertyOwner</code></h4>
+  <hr>
+  <ul>
+    <li><code>properties:Dict[str,Any]</code></li>
+  </ul>
+  <h4 id="displayable"><code>Displayable</code></h4>
+  <hr>
+  <p>Qualcosa di visualizzabile con una determinata <code>Style.DisplayPolicy</code></p>
+  <ul>
+    <li>per impostare la politica di visualizzazione puoi usare: <code>display(v:Style.DisplayPolicy) -&gt; Self</code>
+    </li>
+  </ul>
+  <h4 id="outlined"><code>Outlined</code></h4>
+  <hr>
+  <p>Aggiunge uno stile di contorno</p>
+  <ul>
+    <li>
+      <p><code>outline(outline:str) -&gt; Self</code></p>
+      <p>Imposta lo stile di contorno</p>
+    </li>
+  </ul>
+  <h4 id="alignablestyle"><code>AlignableStyle</code></h4>
+  <hr>
+  <p>Aggiunge stile di allineamento</p>
+  <ul>
+    <li>
+      <p><code>alignment(alignment: Style.TextAlignmentPolicy) -&gt; Self</code></p>
+      <p> Imposta lo stile di allineamento</p>
+    </li>
+  </ul>
+  <h4 id="fonteditable"><code>FontEditable</code></h4>
+  <hr>
+  <p>Aggiunge stili relativi al font</p>
+  <ul>
+    <li>
+      <p><code>fontSize(size: str) -&gt; Self</code></p>
+      <p>Imposta la dimensione del font</p>
+    </li>
+    <li>
+      <p><code>fontFamily(family: str) -&gt; Self</code></p>
+      <p>Imposta il tipo di carattere</p>
+    </li>
+  </ul>
+  <h4 id="fontcolorizable"><code>FontColorizable</code></h4>
+  <hr>
+  <p>Aggiunge stile di colore del font</p>
+  <ul>
+    <li>
+      <p><code>textColor(color: str) -&gt; Self</code></p>
+      <p>Imposta il colore del testo</p>
+    </li>
+  </ul>
+  <h4 id="bordered"><code>Bordered</code></h4>
+  <hr>
+  <p>Aggiunge stili di bordo</p>
+  <ul>
+    <li><code>border(border: str) -&gt; Self</code></li>
+    <li><code>borderRadius(radius: str) -&gt; Self</code></li>
+  </ul>
+  <h4 id="paddedstyle"><code>PaddedStyle</code></h4>
+  <hr>
+  <p>Aggiunge stile di padding</p>
+  <ul>
+    <li><code>padding(padding: str) -&gt; Self</code></li>
+  </ul>
+  <h4 id="margined"><code>Margined</code></h4>
+  <hr>
+  <p>Aggiunge stile di margine</p>
+  <ul>
+    <li><code>margin(margin: str) -&gt; Self</code></li>
+  </ul>
+  <h4 id="texteditable"><code>TextEditable</code></h4>
+  <hr>
+  <p>Aggiunge stili relativi al testo</p>
+  <ul>
+    <li><code>textShadow(shadow: str) -&gt; Self</code></li>
+    <li><code>wordWrap(wrap: &#39;Style.WordWrapPolicy&#39;) -&gt; Self</code></li>
+    <li><code>letterSpacing(spacing: str) -&gt; Self</code></li>
+    <li><code>wordSpacing(spacing: str) -&gt; Self</code></li>
+    <li><code>textDecoration(decoration: str) -&gt; Self</code></li>
+    <li><code>textAlignment(alignment: &#39;Style.TextAlignmentPolicy&#39;) -&gt; Self</code></li>
+  </ul>
+  <h4 id="opacityeditable"><code>OpacityEditable</code></h4>
+  <hr>
+  <p>Aggiunge stile di opacità</p>
+  <ul>
+    <li><code>opacity(opacity: str)</code></li>
+  </ul>
+  <h4 id="cursoreditable"><code>CursorEditable</code></h4>
+  <hr>
+  <p>Aggiunge stile del cursore</p>
+  <ul>
+    <li><code>cursor(cursor: Style.CursorStylePolicy)</code></li>
+  </ul>
+  <h4 id="backgroundchangeable"><code>BackgroundChangeable</code></h4>
+  <hr>
+  <p>Aggiunge stile di colore di sfondo</p>
+  <h4 id="qss"><code>QSS</code></h4>
+  <hr>
+  <p>Classe per la gestione di più fogli di stile</p>
+  <ul>
+    <li>
+      <p><code>set(self, identifier: str, style: &#39;Style&#39;) -&gt; Self</code></p>
+      <p>Imposta uno stile con un dato identificatore</p>
+    </li>
+    <li>
+      <p><code>remove(self, identifier: str) -&gt; Self</code></p>
+      <p>Rimuove uno stile con un dato identificatore</p>
+    </li>
+    <li>
+      <p><code>to_str(self) -&gt; str</code></p>
+      <p>Converte il foglio di stile in una rappresentazione stringa, principalmente utilizzata dai parser dei fogli di
+        stile all&#39;interno degli elementi</p>
+    </li>
+  </ul>
+  <h4 id="style"><code>Style</code></h4>
+  <hr>
+  <p>Classe che rappresenta uno stile con varie opzioni di stile.</p>
+  <p>La classe <code>Style</code> fornisce un insieme completo di opzioni di stile per la personalizzazione. Eredita
+    proprietà da più classi mixin, offrendo funzionalità come allineamento, bordi, padding, margini, opacità, stili di
+    cursore, colori di sfondo, stili relativi al font, colori del testo, opzioni di visualizzazione e contorni.</p>
+  <ul>
+    <li>
+      <p><strong><code>add(self, qssIdentifier: str, value: str) -&gt; Style</code></strong>: Aggiunge una proprietà di
+        stile allo stile.</p>
+    </li>
+    <li>
+      <p><strong><code>to_str(self) -&gt; str</code></strong>: Converte le proprietà dello stile in una rappresentazione
+        stringa.</p>
+    </li>
+    <li>
+      <p><strong><code>merge(self, other: &#39;Style&#39;) -&gt; Style</code></strong>: Unisce un altro stile in questo
+        stile, restituendo una nuova istanza.</p>
+    </li>
+    <li>
+      <p><strong><code>update(self, other: &#39;Style&#39;) -&gt; Style</code></strong>: Aggiorna lo stile con le
+        proprietà di un altro stile.</p>
+    </li>
+  </ul>
+  <h4 id="fontweightpolicy"><code>FontWeightPolicy</code></h4>
+  <pre><code class="language-python">Normal = &quot;normal&quot;
+  Italic = &quot;italic&quot;
+  Bold = &quot;bold&quot;
+  BoldItalic = &quot;bold italic&quot;
+  Underline = &quot;underline&quot;
+  Overline = &quot;overline&quot;
+  StrikeOut = &quot;strikeout&quot;
+  </code></pre>
+  <h4 id="textalignmentpolicy"><code>TextAlignmentPolicy</code></h4>
+  <pre><code class="language-python">Left = &quot;AlignLeft&quot;
+  Right = &quot;AlignRight&quot;
+  Center = &quot;AlignCenter&quot;
+  Justify = &quot;AlignJustify&quot;
+  Top = &quot;AlignTop&quot;
+  Bottom = &quot;AlignBottom&quot;
+  TopLeft = &quot;AlignVCenter&quot;
+  TopRight = &quot;AlignHCenter&quot;
+  BottomLeft = &quot;AlignBaseline&quot;
+  </code></pre>
+  <h4 id="cursorstylepolicy"><code>CursorStylePolicy</code></h4>
+  <pre><code class="language-python">ArrowCursor = &#39;arrow&#39;
+  UpArrowCursor = &#39;uparrow&#39;
+  CrossCursor = &#39;cross&#39;
+  WaitCursor = &#39;wait&#39;
+  IBeamCursor = &#39;ibeam&#39;
+  SizeVerCursor = &#39;sizever&#39;
+  SizeHorCursor = &#39;sizehor&#39;
+  SizeBDiagCursor = &#39;sizebdiag&#39;
+  SizeFDiagCursor = &#39;sizefdiag&#39;
+  SizeAllCursor = &#39;sizeall&#39;
+  BlankCursor = &#39;blank&#39;
+  SplitVCursor = &#39;splitv&#39;
+  SplitHCursor = &#39;splith&#39;
+  PointingHandCursor = &#39;pointinghand&#39;
+  ForbiddenCursor = &#39;forbidden&#39;
+  OpenHandCursor = &#39;openhand&#39;
+  ClosedHandCursor = &#39;closedhand&#39;
+  WhatsThisCursor = &#39;whatsthis&#39;
+  BusyCursor = &#39;busy&#39;
+  DragMoveCursor = &#39;dragmove&#39;
+  DragCopyCursor = &#39;dragcopy&#39;
+  DragLinkCursor = &#39;draglink&#39;
+  BitmapCursor = &#39;bitmap&#39;
+  </code></pre>
+  <h4 id="displaypolicy"><code>DisplayPolicy</code></h4>
+  <pre><code class="language-python">None_ = &quot;none&quot;
+  Inline = &quot;inline&quot;
+  Block = &quot;block&quot;
+  InlineBlock = &quot;inline-block&quot;
+  Flex = &quot;flex&quot;
+  InlineFlex = &quot;inline-flex&quot;
+  Grid = &quot;grid&quot;
+  InlineGrid = &quot;inline-grid&quot;
+  Table = &quot;table&quot;
+  TableRow = &quot;table-row&quot;
+  TableCell = &quot;table-cell&quot;
+  TableColumn = &quot;table-column&quot;
+  TableRowGroup = &quot;table-row-group&quot;
+  TableColumnGroup = &quot;table-column-group&quot;
+  TableCaption = &quot;table-caption&quot;
+  Hidden = &quot;hidden&quot;
+  InlineHidden = &quot;inline-hidden&quot;
+  Visible = &quot;visible&quot;
+  InlineVisible = &quot;inline-visible&quot;
+  Inherit = &quot;inherit&quot;
+  Initial = &quot;initial&quot;
+  Unset = &quot;unset&quot;
+  Revert = &quot;revert&quot;
+  RevertLayer = &quot;revert-layer&quot;
+  RevertInline = &quot;revert-inline&quot;
+  RevertGroup = &quot;revert-group&quot;
+  RevertItem = &quot;revert-item&quot;
+  </code></pre>
+  <h4 id="wordwrappolicy"><code>WordWrapPolicy</code></h4>
+  <pre><code class="language-python">Enabled = &quot;true&quot;
+  Disabled = &quot;false&quot;
+  </code></pre>
+  <h4 id="buttongroup"><code>ButtonGroup</code></h4>
+  <h4 id="basicelement"><code>BasicElement</code></h4>
+  <h4 id="basecontainer"><code>BaseContainer</code></h4>
+  <h4 id="vertical"><code>Vertical</code></h4>
+  <h4 id="horizontal"><code>Horizontal</code></h4>
+  <h4 id="grid"><code>Grid</code></h4>
+  <h4 id="stacked"><code>Stacked</code></h4>
+  <h4 id="tabs"><code>Tabs</code></h4>
+  <h4 id="label"><code>Label</code></h4>
+  <h4 id="heading"><code>Heading</code></h4>
+  <h4 id="text"><code>Text</code></h4>
+  <h4 id="button"><code>Button</code></h4>
+  <h4 id="checkbox"><code>CheckBox</code></h4>
+  <h4 id="radiobutton"><code>RadioButton</code></h4>
+  <h4 id="combobox"><code>ComboBox</code></h4>
+  <h4 id="field"><code>Field</code></h4>
+  <h4 id="multilinefield"><code>MultilineField</code></h4>
+  <h4 id="slider"><code>Slider</code></h4>
+  <h4 id="progressbar"><code>ProgressBar</code></h4>
+  <h4 id="spinbox"><code>SpinBox</code></h4>
+  <h4 id="dial"><code>Dial</code></h4>
+  <h4 id="action"><code>Action</code></h4>
+  <h4 id="menu"><code>Menu</code></h4>
+  <h4 id="menubar"><code>MenuBar</code></h4>
+  <h4 id="filedialog"><code>FileDialog</code></h4>
+  <h4 id="window"><code>Window</code></h4>
+  <h4 id="dialog"><code>Dialog</code></h4>
+  <h4 id="scrollablecontainer"><code>ScrollableContainer</code></h4>
+  <h4 id="groupbox"><code>GroupBox</code></h4>
+  <h4 id="itemcheckable"><code>ItemCheckable</code></h4>
+  <h4 id="toggle"><code>Toggle</code></h4>
+  <h4 id="table"><code>Table</code></h4>
+  <h4 id="loginform"><code>LoginForm</code></h4>
+  <h4 id="multilineassistedfield"><code>MultilineAssistedField</code></h4>
+  <h4 id="listwidget"><code>ListWidget</code></h4>
+  <h4 id="listitem"><code>ListItem</code></h4>
+  <h4 id="navigationlink"><code>NavigationLink</code></h4>
+  <h4 id="navigationbar"><code>NavigationBar</code></h4>
+  <h4 id="divider"><code>Divider</code></h4>
+  <h4 id="hdivider"><code>HDivider</code></h4>
+  <h4 id="vdivider"><code>VDivider</code></h4>
+</body>
+</html>
